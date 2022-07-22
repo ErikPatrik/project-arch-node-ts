@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import * as bcrypt from 'bcrypt';
 import { IUser } from "../interfaces/IUser";
 
-const UsersSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
@@ -21,10 +21,6 @@ const UsersSchema = new mongoose.Schema({
     }
 })
 
-export { UsersSchema }
-
-const build = (attr: IUser) => {
-    return new User(attr)
-}
+const User = mongoose.model('User', userSchema)
 
 export { User }

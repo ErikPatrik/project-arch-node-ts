@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { UserDto } from "../dtos/User/user.dto";
 import { UsersService } from "../services/users.service";
 
 export class UsersController {
@@ -7,11 +8,10 @@ export class UsersController {
     ){}
 
     async create(request: Request, response: Response): Promise<Response> {
-        const { name, email, password } = request.body
+        const { email, password } = request.body
 
         try {
-            const user = await this.usersService.execute({
-                name,
+            const user:UserDto = await this.usersService.execute({
                 email,
                 password
             })

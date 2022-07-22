@@ -7,7 +7,11 @@ export class UsersRepository implements IUsersRepository {
     async findByEmail(email: string): Promise<User> {
         const user = this.users.find(user => user.email === email);
 
-        return user;
+        if (!user) {
+            throw new Error
+        }
+
+        return user
     }
 
     async save(user: User): Promise<void> {

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import * as bcrypt from 'bcrypt';
 import { IUser } from "../interfaces/IUser";
 
 const userSchema = new mongoose.Schema({
@@ -21,6 +20,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model('User', userSchema)
+const UserSchema = mongoose.model<IUser>('User', userSchema)
 
-export { User }
+export { UserSchema }

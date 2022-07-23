@@ -1,5 +1,5 @@
 export class UserDto {
-    public id?: string
+    public readonly id?: string
     public email: string
     public password?: string
 }

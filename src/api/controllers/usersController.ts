@@ -23,7 +23,7 @@ export class UsersController {
                 data: {user}
             })
         } catch (err) {
-            return response.status(400).json({ message: err || "Unexpected error." })
+            return response.status(400).send({ message: err.message || "Unexpected error." })
         }
     }
 }

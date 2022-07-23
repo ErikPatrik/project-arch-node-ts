@@ -1,17 +1,17 @@
-import { uuid } from "uuidv4";
+import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 
 export class User {
-    public readonly id: string;
+    public readonly id?: string | ObjectId
 
-    public name: string;
-    public email: string;
+    public email?: string;
     public password: string;
 
     constructor(props: Omit<User, 'id'>, id?: string) { // recebe todas as propriedades do User menos o ID
         Object.assign(this, props)
 
         if (!id) {
-            this.id = uuid()
+            this.id = new mongoose.Types.ObjectId()
         }
     }
 }

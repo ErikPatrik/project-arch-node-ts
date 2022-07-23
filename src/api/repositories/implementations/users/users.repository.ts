@@ -1,20 +1,27 @@
 import { IUsersRepository } from "../../interfaces/IUsersRepository";
 import { User } from '../../../entities/User'
-
+import { UserDto } from "../../../dtos/User/user.dto";
+import { UserSchema } from "../../../models/schemas/users.schema";
 export class UsersRepository implements IUsersRepository {
-    private users: User[] = [];
+    async findByEmail(email: string): Promise<any> {
 
-    async findByEmail(email: string): Promise<User> {
-        const user = this.users.find(user => user.email === email);
+        const getUser = UserSchema.findOne({
+            email: email
+        })
 
-        if (!user) {
+        if (!getUser) {
             throw new Error
         }
 
-        return user
+        return getUser
     }
 
-    async save(user: User): Promise<void> {
-        this.users.push(user);
+    async save(user: UserDto): Promise<User> {
+        const userSave = new UserSchema({
+            email: user.email,
+            password: user.password
+        })
+
+        return userSave.save()
     }
 }

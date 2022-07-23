@@ -4,16 +4,9 @@ import { UserDto } from "../../../dtos/User/user.dto";
 import { UserSchema } from "../../../models/schemas/users.schema";
 export class UsersRepository implements IUsersRepository {
     async findByEmail(email: string): Promise<any> {
-
-        const getUser = UserSchema.findOne({
+        return await UserSchema.findOne({
             email: email
         })
-
-        if (!getUser) {
-            throw new Error
-        }
-
-        return getUser
     }
 
     async save(user: UserDto): Promise<User> {
@@ -23,5 +16,9 @@ export class UsersRepository implements IUsersRepository {
         })
 
         return userSave.save()
+    }
+
+    async getAllUsers(): Promise<any> {
+        return UserSchema.find()
     }
 }

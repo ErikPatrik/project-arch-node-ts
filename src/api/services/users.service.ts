@@ -8,12 +8,18 @@ export class UsersService {
     ) {}
 
     async execute(data: UserDto): Promise<any> {
-        const userAlreadyExists = await this.usersRepository.findByEmail(data.email)
+        const emailAlreadyExists = await this.usersRepository.findByEmail(data.email)
 
-        if (userAlreadyExists) {
-            throw new Error('User already exists.')
-        }
+        if (emailAlreadyExists) throw new Error('Email already exists!')
 
         return await this.usersRepository.save(data)
+    }
+
+    async getAllUsers(): Promise<User> {
+        const findALlUsers = await this.usersRepository.getAllUsers()
+
+        if (!findALlUsers) throw new Error('Users not exists!')
+
+        return findALlUsers
     }
 }

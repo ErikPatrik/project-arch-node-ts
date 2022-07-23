@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserDto } from "../dtos/User/user.dto";
 import { UsersService } from "../services/users.service";
+import * as bcrypt from 'bcrypt'
 
 export class UsersController {
     constructor(
@@ -10,20 +11,34 @@ export class UsersController {
     async create(request: Request, response: Response): Promise<Response> {
         const { email, password } = request.body
 
+        const cryptoPass =  await bcrypt.hash(password, 10)
+
         try {
             const user:UserDto = await this.usersService.execute({
                 email,
-                password
+                password: cryptoPass
             })
-
-            delete user.password
 
             return response.status(201).send({
                 message: 'User created!',
                 data: {user}
             })
         } catch (err) {
-            return response.status(400).send({ message: err.message || "Unexpected error." })
+            console.log(err)
+            return response.status(409).send({ message: err.message || "Unexpected error." })
+        }
+    }
+
+    async getUsers(request: Request, response: Response): Promise<any> {
+        try {
+
+            const getAllUsers = await this.usersService.getAllUsers()
+
+            return response.status(200).send({
+                data: getAllUsers
+            })
+        } catch (err) {
+            console.log(err)
         }
     }
 }

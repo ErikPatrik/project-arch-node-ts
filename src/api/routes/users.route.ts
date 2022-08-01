@@ -3,7 +3,7 @@ import { usersController } from '../controllers/index';
 
 const usersRouter = Router()
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/auth/register', async (request, response) => {
     return usersController.create(request, response)
 })
 

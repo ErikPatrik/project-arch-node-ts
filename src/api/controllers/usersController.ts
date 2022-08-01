@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { UserDto } from "../dtos/User/user.dto";
 import { UsersService } from "../services/users.service";
-import * as bcrypt from 'bcrypt'
 
 export class UsersController {
     constructor(
@@ -9,14 +8,13 @@ export class UsersController {
     ){}
 
     async create(request: Request, response: Response): Promise<Response> {
-        const { email, password } = request.body
-
-        const cryptoPass =  await bcrypt.hash(password, 10)
+        const { email, password, confirmPassword } = request.body
 
         try {
             const user:UserDto = await this.usersService.execute({
                 email,
-                password: cryptoPass
+                password,
+                confirmPassword
             })
 
             return response.status(201).send({

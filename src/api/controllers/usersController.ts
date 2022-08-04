@@ -22,7 +22,6 @@ export class UsersController {
                 data: {user}
             })
         } catch (err) {
-            console.log(err)
             return response.status(409).send({ message: err.message || "Unexpected error." })
         }
     }

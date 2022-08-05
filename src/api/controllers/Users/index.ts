@@ -1,6 +1,6 @@
 import { UsersController } from "./usersController"
-import { UsersService } from "../services/users.service"
-import { UsersRepository } from "../repositories/implementations/users/users.repository"
+import { UsersService } from "../../services/Users/users.service"
+import { UsersRepository } from "../../repositories/implementations/users/users.repository"
 
 const usersRepository = new UsersRepository()
 

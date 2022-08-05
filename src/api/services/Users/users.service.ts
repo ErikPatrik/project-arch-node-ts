@@ -1,7 +1,8 @@
-import { User } from "../entities/User";
-import { UserDto } from "../dtos/User/user.dto";
-import { IUsersRepository } from "../repositories/interfaces/IUsersRepository";
-import { isEmailValid, isPasswordValid } from "../utils/validators"
+import { User } from "../../entities/User";
+import { UserDto } from "../../dtos/User/user.dto";
+import { IUsersRepository } from "../../repositories/interfaces/IUsersRepository";
+import { isEmailValid, isPasswordValid } from "../../utils/validators"
+
 export class UsersService {
     constructor(
         private usersRepository: IUsersRepository,

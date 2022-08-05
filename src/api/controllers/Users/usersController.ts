@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UserDto } from "../dtos/User/user.dto";
-import { UsersService } from "../services/users.service";
+import { UserDto } from "../../dtos/User/user.dto";
+import { UsersService } from "../../services/Users/users.service";
 
 export class UsersController {
     constructor(

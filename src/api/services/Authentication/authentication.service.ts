@@ -1,6 +1,7 @@
 import { AuthenticationDto } from "../../dtos/Authentication/authentication.dto"
 import { IUsersRepository } from "../../repositories/interfaces/IUsersRepository"
 import * as bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken"
 
 export class AuthenticationService {
     constructor(
@@ -10,10 +11,20 @@ export class AuthenticationService {
     async execute(data: AuthenticationDto): Promise<any> {
         if (!data.email || !data.password) throw new Error ("The address email or password is undefined!")
 
-        const findUserByEmail = await this.usersRepository.findByEmail(data.email)
-        if (!findUserByEmail) throw new Error ("The address email not exists!")
+        const user = await this.usersRepository.findByEmail(data.email)
+        if (!user) throw new Error ("The address email not exists!")
 
-        const checkPasswordMatch = await bcrypt.compare(data.password, findUserByEmail.password)
-        if (!checkPasswordMatch) throw new Error ("The password is incorrect, try again!")
+        if (user && (await bcrypt.compare(data.password, user.password))) {
+            const token = jwt.sign(
+                { user_id: user.id, email: user.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "2h" }
+            )
+
+            user.token = token
+            return token
+        }
+
+        throw new Error ("The password is incorrect, try again!")
     }
 }

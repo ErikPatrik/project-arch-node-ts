@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { PersonsController } from "../controllers/Person/personsControllers";
+import { personsController } from "../controllers/Persons/index";
 
 const personsRouter = Router()
 
 personsRouter.post('/', async (request, response) => {
-    console.log('chegou')
+    return await personsController.create(request, response)
 })
 
 export { personsRouter }

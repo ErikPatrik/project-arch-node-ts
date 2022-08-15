@@ -1,7 +1,7 @@
 import { IUsersRepository } from "../../interfaces/IUsersRepository";
 import { User } from '../../../entities/User'
 import { UserDto } from "../../../dtos/User/user.dto";
-import { UserSchema } from "../../../models/schemas/users.schema";
+import { UserSchema } from "../../../models/schemas/Users/users.schema";
 import * as bcrypt from 'bcrypt'
 export class UsersRepository implements IUsersRepository {
     async save(user: UserDto): Promise<User> {
